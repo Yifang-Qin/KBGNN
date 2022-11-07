@@ -1,6 +1,6 @@
 ## KBGNN
 
-This is the pytorch implementation for our ICDM 2022 paper:
+This is the pytorch implementation for our ICDM 2022 [paper](https://arxiv.org/abs/2210.03969):
 > Wei Ju, Yifang Qin, Ziyue Qiao, Xiao Luo, Yifan Wang, Yanjie Fu, and Ming Zhang(2022). Kernel-based Substructure Exploration
 for Next POI Recommendation
 
