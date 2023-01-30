@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence
 from torch_geometric.nn import MessagePassing
-from torch_geometric.utils import add_self_loops, to_undirected, degree
+from torch_geometric.utils import degree
 
 
 class HardAttn(nn.Module):
@@ -66,8 +66,10 @@ class GeoGraph(nn.Module):
         self.device = device
 
         self.dist_edges = dist_edges.to(device)
-        self.dist_edges = to_undirected(self.dist_edges)
-        self.dist_edges, _ = add_self_loops(self.dist_edges)
+        loop_index = torch.arange(0, n_poi).unsqueeze(0).repeat(2, 1).to(device)
+        self.dist_edges = torch.cat(
+            (self.dist_edges, self.dist_edges[[1, 0]], loop_index), dim=-1
+        )
         dist_vec = np.concatenate((dist_vec, dist_vec, np.zeros(self.n_poi)))
         self.dist_vec = torch.Tensor(dist_vec).to(device)
 
